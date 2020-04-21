@@ -1,0 +1,52 @@
+<odoo>
+    <record id="team_tree_view" model="ir.ui.view">
+        <field name="name">Tree View</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <tree string="Tree View">
+                <field name="name"/>
+                <field name="description"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="team_form" model="ir.ui.view">
+        <field name="name">Team Form</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <form string="Team Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+ <record id="project_team_action" model="ir.actions.act_window">
+            <field name="name">Team</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.team</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create team
+              </p>
+            </field>
+        </record>
+    <menuitem name="Project"
+            id="menu_main_pm"
+            groups="group_project_manager,group_project_user"
+            web_icon="project,static/description/icon.png"
+            sequence="50"/>
+
+    <menuitem  id="menu_projects_team" name="Team" action="project_team_action" parent="menu_main_pm" sequence="7"/>
+</odoo>
