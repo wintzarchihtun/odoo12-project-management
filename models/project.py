@@ -173,7 +173,7 @@ class Project(models.Model):
     def _get_default_favorite_user_ids(self):
         return [(6, 0, [self.env.uid])]
     team=fields.Many2one('project.team',string="Team Name")
-
+    projectemail = fields.Char(string="Email" )
     name = fields.Char("Name", index=True, required=True, track_visibility='onchange')
     active = fields.Boolean(default=True,
         help="If the active field is set to False, it will allow you to hide the project without removing it.")
@@ -452,6 +452,8 @@ class Task(models.Model):
         stage_ids = stages._search(search_domain, order=order, access_rights_uid=SUPERUSER_ID)
         return stages.browse(stage_ids)
 
+    work = fields.Selection([('daily', 'Daily Job'), ('weekly', 'Weekly Job'), ('monthly', 'Monthly Job')],
+                            string="Job Types")
     active = fields.Boolean(default=True)
     name = fields.Char(string='Title', track_visibility='always', required=True, index=True)
     description = fields.Html(string='Description')

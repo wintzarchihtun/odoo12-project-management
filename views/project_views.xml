@@ -163,7 +163,7 @@
                                     <field name="alias_id" class="oe_read_only oe_inline"
                                             string="Email Alias" required="0"/>
                                     <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;" >
-                                        <field name="alias_name" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+                                        <field name="projectemail" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
                                     </div>
                                 </div>
                                 <field name="alias_contact" class="oe_inline oe_edit_only"
@@ -259,7 +259,7 @@
                             <field name="team"/>
                             <label for="alias_name" string="Choose a Project Email" attrs="{'invisible': [('alias_domain', '=', False)]}"/>
                             <div name="alias_def" attrs="{'invisible': [('alias_domain', '=', False)]}">
-                                <field name="alias_name" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+                                <field name="projectemail" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
                             </div>
                         </group>
                         </group>
@@ -292,7 +292,7 @@
                     <field name="task_count"/>
                     <field name="label_tasks"/>
                     <field name="alias_id"/>
-                    <field name="alias_name"/>
+                    <field name="projectemail"/>
                     <field name="alias_domain"/>
                     <field name="is_favorite"/>
                     <field name="percentage_satisfaction_project"/>
@@ -309,8 +309,8 @@
                                                     <strong><t t-esc="record.partner_id.value"/></strong>
                                                 </span>
                                             </div>
-                                            <div t-if="record.alias_name.value and record.alias_domain.value">
-                                                <span><i class="fa fa-envelope" role="img" aria-label="Domain Alias" title="Domain Alias"></i> <t t-esc="record.alias_id.value"/></span>
+                                            <div t-if="record.projectemail.value and record.alias_domain.value">
+                                                <span><i class="fa fa-envelope" role="img" aria-label="Domain Alias" title="Domain Alias"></i> <t t-esc="record.projectemail.value"/>@<t t-esc="record.alias_domain.value"/></span>
                                             </div>
                                             <div t-if="record.rating_status.raw_value != 'no'" class="mt8 text-primary" title="Percentage of happy ratings over the past 30 days. Get rating details from the More menu." groups="project.group_project_rating">
                                                 <b>
@@ -465,6 +465,9 @@
 
                             </field>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="work"/>
                         </group>
                     </group>
                     <notebook>
@@ -657,6 +660,7 @@
                 <form>
                     <group>
                         <field name="name" string = "Task Title"/>
+                        <field name="work"/>
                         <field name="user_id" options="{'no_open': True,'no_create': True}"/>
                     </group>
                 </form>
@@ -673,6 +677,7 @@
                     <field name="priority"/>
                     <field name="stage_id" options='{"group_by_tooltip": {"description": "Stage Description", "legend_priority": "Use of stars"}}'/>
                     <field name="user_id"/>
+                    <field name="work"/>
                     <field name="sequence"/>
                     <field name="date_deadline"/>
                     <field name="message_needaction_counter"/>
