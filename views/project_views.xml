@@ -305,6 +305,10 @@
                                         <div class="o_kanban_primary_left">
                                             <div class="o_primary">
                                                 <span style="color:green"><t t-esc="record.name.value"/></span>
+                                                <br/>
+                                                <span style="color:blue">
+                                                    <t t-esc="record.team.value"/>
+                                                </span>
                                                 <span t-if="record.partner_id.value">
                                                     <strong><t t-esc="record.partner_id.value"/></strong>
                                                 </span>
@@ -353,9 +357,9 @@
                                             <span class="o_label" ><t t-esc="record.label_tasks.value"/></span>
                                         </div>
                                     </a>
-                                    <div>
-                                        <span class="o_label" style="color:blue"><t t-esc="record.team.value"/></span>
-                                    </div>
+<!--                                    <div>-->
+<!--                                        <span class="o_label" style="color:blue"><t t-esc="record.team.value"/></span>-->
+<!--                                    </div>-->
                                     </div>
 
 
@@ -419,7 +423,7 @@
             <field name="arch" type="xml">
                 <form string="Task" class="o_form_project_tasks">
                     <header>
-                         <button name="%(project.create_appointment_wizard)d" string="Create Online Meeting" type="action" class="oe_highlight"/>
+                         <button name="" string="Create Online Meeting" type="action" class="oe_highlight"/>
                         <button name="action_assign_to_me" string="Assign to Me" type="object" class="oe_highlight"
                             attrs="{'invisible' : [('user_id', '!=', False)]}"/>
                         <button name="%(portal.portal_share_action)d" string="Share" type="action" class="oe_highlight oe_read_only"/>
@@ -467,7 +471,8 @@
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group>
-                            <field name="work"/>
+                        <field name="work"/>
+
                         </group>
                     </group>
                     <notebook>
@@ -585,6 +590,19 @@
              <field name="arch" type="xml">
            <data>
          <xpath expr="//field[@name='date_deadline']" position="attributes">
+       <attribute name="readonly">False</attribute>
+    </xpath>
+  </data>
+  </field>
+</record>
+<record id="plan_hour_specify" model="ir.ui.view">
+    <field name="name">xxx_form_specify</field>
+       <field name="model">project.task</field>
+         <field name="groups_id" eval="[(6,0,[ref('group_project_manager')])]"/>
+           <field name="inherit_id" ref="view_task_form2"/>
+             <field name="arch" type="xml">
+           <data>
+         <xpath expr="//field[@name='planned_hours']" position="attributes">
        <attribute name="readonly">False</attribute>
     </xpath>
   </data>
